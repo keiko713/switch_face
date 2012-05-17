@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+  <meta charset="utf-8">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="css/docs.css" rel="stylesheet">
+
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova-1.7.0rc1.js"></script>
+  <script type="text/javascript">
+  var img = document.createElement('img');
+  var canvas;
+  var context;
+  var trollOn = false;
+  var yaoOn = false;
+
+  function onBodyLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    canvas = document.getElementById('mycanvas');
+    context = canvas.getContext("2d");
+    img.onload = drawImg;
+  }
+
+  function drawImg() {
+    var w = img.width;
+    var h = img.height;
+    var x = 0;
+    var d = 1;
+    if (w > 270) {
+      d = w / 270;
+    } else {
+      x = (270-w) / 2
+    }
+    context.drawImage(img, x, 0, w*d, h*d);
+  }
+
+  function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+  }
+
+  function onPhotoDataSuccess(imageData) {
+    img.src = "data:image/jpeg;base64," + imageData;
+    drawImg();
+    afterImportPhoto();
+  }
+
+  function onPhotoURISuccess(imageURI) {
+    img.src = imageURI;
+    drawImg();
+    afterImportPhoto();
+  }
+
+  function afterImportPhoto() {
+    var buttons = document.getElementById('buttons');
+    buttons.style.display = 'none';
+    var faces = document.getElementById('faces');
+    faces.style.display = 'block';
+    yaoOn = true;
+    putFaceTroll();
+  }
+
+  function capturePhoto() {
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      destinationType: destinationType.DATA_URL });
+  }
+
+  function getPhoto() {
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+      destinationType: destinationType.FILE_URI,
+      sourceType: pictureSource.PHOTOLIBRARY });
+  }
+
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
+
+  function showTop() {
+    var buttons = document.getElementById('buttons');
+    buttons.style.display = 'block';
+    var faces = document.getElementById('faces');
+    faces.style.display = 'none';
+  }
+
+  function putFaceTroll() {
+    var trollBtn = document.getElementById('troll-btn');
+    var yaoBtn = document.getElementById('yaoming-btn');
+    if (yaoOn) {
+      // clear canvas
+      canvas.width = canvas.width;
+      drawImg();
+      yaoBtn.className = yaoBtn.className.replace(' btn-warning','');
+      canvas.removeEventListener('mousedown', yaoPrint);
+      trollBtn.className += ' btn-warning';
+      canvas.addEventListener('mousedown', trollPrint, false);
+      trollOn = true;
+      yaoOn = false;
+    }
+  }
+
+  function putFaceYao() {
+    var trollBtn = document.getElementById('troll-btn');
+    var yaoBtn = document.getElementById('yaoming-btn');
+    if (trollOn) {
+      // clear canvas
+      canvas.width = canvas.width;
+      drawImg();
+      trollBtn.className = trollBtn.className.replace(' btn-warning','');
+      canvas.removeEventListener('mousedown', trollPrint);
+      yaoBtn.className += ' btn-warning';
+      canvas.addEventListener('mousedown', yaoPrint, false);
+      yaoOn = true;
+      trollOn = false;
+    }
+  }
+
+  function trollPrint(e) {
+    // clear canvas
+    canvas.width = canvas.width;
+
+    canvasX = e.pageX - canvas.offsetLeft;
+    canvasY = e.pageY - canvas.offsetTop;
+    x = canvasX - 45;
+    y = canvasY - 45;
+
+    drawImg();
+    var trollImg = document.createElement('img');
+    trollImg.src = 'img/troll2.png';
+    trollImg.onload = function() {
+      context.drawImage(trollImg, x, y);
+    }
+  }
+
+  function yaoPrint(e) {
+    // clear canvas
+    canvas.width = canvas.width;
+
+    canvasX = e.pageX - canvas.offsetLeft;
+    canvasY = e.pageY - canvas.offsetTop;
+    x = canvasX - 50;
+    y = canvasY - 50;
+
+    drawImg();
+    var yaoImg = document.createElement('img');
+    yaoImg.src = 'img/yaoming2.png';
+    yaoImg.onload = function() {
+      context.drawImage(yaoImg, x, y);
+    }
+  }
+  </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <span class="brand" style="text-align: center;" onclick="showTop()">SWITCH FACE</span>
+          </span>
+        </div>
+      </div>
+    </div><!-- /navbar -->
+    <div class="container">
+      <div id="buttons">
+        <p><button class="btn btn-large" style="width: 100%;" onclick="capturePhoto()">TAKE A PHOTO</button></p>
+        <p><button class="btn btn-large" style="width: 100%;" onclick="getPhoto()">IMPORT A PHOTO</button></p>
+      </div><!-- /buttons -->
+      <div id="faces" style="display: none; text-align: center;">
+        <p><button id="troll-btn" class="btn btn-large" style="width: 100%;" onclick="putFaceTroll()">Troll</button></p>
+        <p><button id="yaoming-btn" class="btn btn-large" style="width: 100%;" onclick="putFaceYao()">Yao Ming</button></p>
+        <canvas id="mycanvas" width="270" height="350"></canvas>
+      </div><!-- /faces -->
+    </div>
+</body>
+</html>

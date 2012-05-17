@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  <meta charset="utf-8">
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="css/docs.css" rel="stylesheet">
+
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript">
+  function onBodyLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    var canvas = document.getElementById('mycanvas'),
+      context = canvas.getContext("2d"),
+      mouseDown = false,
+      brushColor = "rgb(0, 0, 0)",
+      hasText = true,
+      clearCanvas = function() {
+        if (hasText) {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          hasText = false;
+        }
+      };
+    context.fillRect(0, 0, 150, 100);
+
+    canvas.addEventListener("mousedown", function(evt) {
+      clearCanvas();
+      mouseDown = true;
+      context.beginPath();
+    }, false);
+
+    canvas.addEventListener("mouseup", function(evt) {
+      mouseDown = false;
+      var colors = context.getImageData(evt.layerX, evt.layerY, 1, 1).data;
+      brushColor = "rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")";
+    }, false);
+
+    canvas.addEventListener("mousemove", function(evt) {
+      if (mouseDown) {
+        context.strokeStyle = brushColor;
+        context.lineWidth = 20;
+        context.lineJoin = "round";
+        context.lineTo(evt.layerX+1, evt.layerY+1);
+        context.stroke();
+      }
+    }, false);
+  }
+
+  function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+  }
+
+  function onPhotoDataSuccess(imageData) {
+    var canvas = document.getElementById('mycanvas');
+    var img = document.createElement('img');
+    canvas.style.display = 'block';
+    context = canvas.getContext("2d");
+    img.src = "data:image/jpeg;base64," + imageData;
+    context.drawImage(img, 0, 0);
+    afterImportPhoto();
+  }
+
+  function onPhotoURISuccess(imageURI) {
+    var canvas = document.getElementById('mycanvas');
+    var img = document.createElement('img');
+    canvas.style.display = 'block';
+    context = canvas.getContext("2d");
+    img.src = imageURI;
+    context.drawImage(img, 0, 0);
+    afterImportPhoto();
+  }
+
+  function afterImportPhoto() {
+    var buttons = document.getElementById('buttons');
+    buttons.style.display = 'none';
+  }
+
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
+  </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">SWITCH FACE</a>
+          <span class="pull-right twbutton">
+          </span>
+        </div>
+      </div>
+    </div><!-- /navbar -->
+    <div class="container">
+      <div id="buttons">
+        <p><button class="btn btn-large" style="width: 100%;" onclick="capturePhoto()">TAKE A PHOTO</button></p>
+        <p><button class="btn btn-large" style="width: 100%;" onclick="onPhotoURISuccess('img/rin.jpg')">IMPORT A PHOTO</button></p>
+      </div>
+      <canvas style="" id="mycanvas" width="600" height="800"></canvas>
+    </div>
+</body>
+</html>
