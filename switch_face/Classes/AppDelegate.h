@@ -19,7 +19,7 @@
 
 //
 //  AppDelegate.h
-//  phonegap_test
+//  switch_face
 //
 //  Created by Keiko Oda on 5/8/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
@@ -39,7 +39,7 @@
 }
 
 // invoke string is passed to your app on launch, this is only valid if you 
-// edit phonegap_test-Info.plist to add a protocol
+// edit switch_face-Info.plist to add a protocol
 // a simple tutorial can be found here : 
 // http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 

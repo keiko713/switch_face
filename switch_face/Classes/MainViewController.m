@@ -19,7 +19,7 @@
 
 //
 //  MainViewController.h
-//  phonegap_test
+//  switch_face
 //
 //  Created by Keiko Oda on 5/8/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.

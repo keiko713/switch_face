@@ -19,7 +19,7 @@
 
 //
 //  AppDelegate.m
-//  phonegap_test
+//  switch_face
 //
 //  Created by Keiko Oda on 5/8/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
@@ -66,7 +66,7 @@
     
     if (url && [url isKindOfClass:[NSURL class]]) {
         invokeString = [url absoluteString];
-		NSLog(@"phonegap_test launchOptions = %@", url);
+		NSLog(@"switch_face launchOptions = %@", url);
     }    
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -115,7 +115,7 @@
 }
 
 // this happens while we are running ( in the background, or from within our own app )
-// only valid if phonegap_test-Info.plist specifies a protocol to handle
+// only valid if switch_face-Info.plist specifies a protocol to handle
 - (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)url 
 {
     if (!url) { 

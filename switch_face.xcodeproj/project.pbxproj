@@ -56,10 +56,10 @@
 		4FA973411559BBF300C4015A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4FA973431559BBF300C4015A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		4FA973451559BBF300C4015A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		4FA973491559BBF400C4015A /* switch_face-Info.plist */ = {isa = PBXFileReference; path = "switch_face-Info.plist"; sourceTree = "<group>"; };
+		4FA973491559BBF400C4015A /* switch_face-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "switch_face-Info.plist"; sourceTree = "<group>"; };
 		4FA9734B1559BBF400C4015A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4FA9734D1559BBF500C4015A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4FA9734F1559BBF500C4015A /* switch_face-Prefix.pch */ = {isa = PBXFileReference; path = "switch_face-Prefix.pch"; sourceTree = "<group>"; };
+		4FA9734F1559BBF500C4015A /* switch_face-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "switch_face-Prefix.pch"; sourceTree = "<group>"; };
 		4FA973501559BBF500C4015A /* Cordova.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cordova.framework; path = /Users/Shared/Cordova/Frameworks/Cordova.framework; sourceTree = "<absolute>"; };
 		4FA973551559BBF600C4015A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4FA973591559BBF600C4015A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 		4FA9731B1559BBEF00C4015A = {
 			isa = PBXGroup;
 			children = (
+				4FA973471559BBF300C4015A /* switch_face */,
 				4FA973851559BDEA00C4015A /* www */,
-				4FA973471559BBF300C4015A /* phonegap_test */,
 				4FA9732C1559BBF200C4015A /* Frameworks */,
 				4FA9732A1559BBF200C4015A /* Products */,
 			);
@@ -152,7 +152,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4FA973471559BBF300C4015A /* phonegap_test */ = {
+		4FA973471559BBF300C4015A /* switch_face */ = {
 			isa = PBXGroup;
 			children = (
 				4FA973501559BBF500C4015A /* Cordova.framework */,
@@ -161,7 +161,7 @@
 				4FA9737C1559BBFD00C4015A /* Plugins */,
 				4FA973481559BBF400C4015A /* Supporting Files */,
 			);
-			path = phonegap_test;
+			path = switch_face;
 			sourceTree = "<group>";
 		};
 		4FA973481559BBF400C4015A /* Supporting Files */ = {
@@ -474,12 +474,12 @@
 				FRAMEWORK_SEARCH_PATHS = /Users/Shared/Cordova/Frameworks;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "phonegap_test/switch_face-Prefix.pch";
+				GCC_PREFIX_HEADER = "switch_face/switch_face-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1,",
 					"CORDOVA_FRAMEWORK=1",
 				);
-				INFOPLIST_FILE = "phonegap_test/switch_face-Info.plist";
+				INFOPLIST_FILE = "switch_face/switch_face-Info.plist";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
@@ -504,12 +504,12 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = /Users/Shared/Cordova/Frameworks;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "phonegap_test/switch_face-Prefix.pch";
+				GCC_PREFIX_HEADER = "switch_face/switch_face-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1,",
 					"CORDOVA_FRAMEWORK=1",
 				);
-				INFOPLIST_FILE = "phonegap_test/switch_face-Info.plist";
+				INFOPLIST_FILE = "switch_face/switch_face-Info.plist";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					UIKit,
